@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: rsvp-pdf-reader
+    env: static
+    buildCommand: echo "No build required for static site"
+    staticPublishPath: .
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /*
+        headers:
+          X-Frame-Options: DENY
+          X-Content-Type-Options: nosniff
+          Referrer-Policy: strict-origin-when-cross-origin
+          Permissions-Policy: camera=(), microphone=(), geolocation=()
+    envVars:
+      - key: NODE_ENV
+        value: production
