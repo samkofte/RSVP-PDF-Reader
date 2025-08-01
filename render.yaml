@@ -2,7 +2,7 @@ services:
   - type: web
     name: rsvp-pdf-reader
     env: static
-    buildCommand: echo "No build required for static site"
+    buildCommand: ""
     staticPublishPath: .
     routes:
       - type: rewrite
