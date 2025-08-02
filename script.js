@@ -96,7 +96,13 @@ class RSVPReader {
                 const page = await pdf.getPage(pageNum);
                 const textContent = await page.getTextContent();
                 const pageText = textContent.items.map(item => item.str).join(' ');
-                const pageWords = pageText.split(/\s+/).filter(word => word.trim().length > 0);
+                // Kelime ayırma işlemini iyileştir - noktalama işaretlerini de dikkate al
+                const pageWords = pageText
+                    .replace(/[.,;:!?()\[\]{}"'\-–—]/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim()
+                    .split(' ')
+                    .filter(word => word.length > 0);
                 
                 const startWordIndex = totalWordCount;
                 const wordCount = pageWords.length;
